@@ -1,15 +1,5 @@
-# Multistub - Easily create a stub for several DOs while only awaiting the response of the first
+# multistub
 
-Usage example of `getGlobalStubs`:
+Creates a multi-stub that executes methods on multiple DOs
 
-```ts
-const { reader, writer } = getGlobalStubs(request, env, ctx);
-
-// Fast read from closest location
-const data = await reader.getData();
-
-// Write that gets replicated globally
-await writer.updateData(newData);
-```
-
-See [example](example.ts) for an example using `getGlobalStubs`
+Returns the response from the first DO, executes others in background
