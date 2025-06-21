@@ -11,8 +11,8 @@ This creates a **broadcast execution pattern** where:
 
 I have not yet fathomed what this could enable, but just think about it! Inspo: https://lmpify.com/httpspastebincon-f34s3w0
 
-One thing I think that may be quite neat: https://github.com/janwilmake/multistub-global
+Brainstormed usecases so far:
 
-Another idea: https://lmpify.com/httpsuithubcomj-fs9jv40
-
-Mesh Network Databases: Agent Swarm, Chat apps, push-based gossip: https://lmpify.com/httpsuithubcomj-rkdgt00
+- **Global read replication**: https://github.com/janwilmake/multistub-global
+- **Offloading Heavy Calculations**: https://lmpify.com/httpsuithubcomj-fs9jv40
+- **Mesh Network Databases**: Agent Swarm, Chat apps, push-based gossip: https://lmpify.com/httpsuithubcomj-rkdgt00
