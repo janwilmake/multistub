@@ -12,4 +12,4 @@ Ran into [wrangler:error] TypeError: Illegal invocation: function called with in
 
 All llm suggestions didn't work. after instructing this, it worked: please make a new implementation with a proxy where we just get the called method name and still continue doing the original stub call not to lose the context. we assume the property called is a function still
 
-https://lmpify.com/httpspastebincon-s5mztf0
+https://letmeprompt.com/httpspastebincon-s5mztf0
