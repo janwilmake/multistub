@@ -8,8 +8,8 @@ export interface MultiStubConfig {
 }
 
 /** Get multiple stubs without merging them */
-export const getStubs = (
-  namespace: DurableObjectNamespace<any>,
+export const getStubs = <T extends Rpc.DurableObjectBranded>(
+  namespace: DurableObjectNamespace<T>,
   configs: MultiStubConfig[],
 ) => {
   const stubs = configs.map((config) => {
@@ -29,8 +29,8 @@ export const getStubs = (
  * Creates a multi-stub that executes methods on multiple DOs
  * Returns the response from the first DO, executes others in background
  */
-export function getMultiStub<T extends object>(
-  namespace: DurableObjectNamespace<any>,
+export function getMultiStub<T extends Rpc.DurableObjectBranded>(
+  namespace: DurableObjectNamespace<T>,
   configs: MultiStubConfig[],
   ctx: ExecutionContext,
 ): T {
