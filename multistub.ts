@@ -7,20 +7,11 @@ export interface MultiStubConfig {
   config?: DurableObjectNamespaceGetDurableObjectOptions;
 }
 
-/**
- * Creates a multi-stub that executes methods on multiple DOs
- * Returns the response from the first DO, executes others in background
- */
-export function getMultiStub<T extends object>(
+/** Get multiple stubs without merging them */
+export const getStubs = (
   namespace: DurableObjectNamespace<any>,
-  ctx: ExecutionContext,
   configs: MultiStubConfig[],
-): T {
-  if (configs.length === 0) {
-    throw new Error("At least one DO configuration is required");
-  }
-
-  // Get all the stubs
+) => {
   const stubs = configs.map((config) => {
     if (config.name) {
       //@ts-ignore
@@ -31,9 +22,23 @@ export function getMultiStub<T extends object>(
       throw new Error("Either name or id must be provided for each DO config");
     }
   });
+  return stubs;
+};
 
-  const primaryStub = stubs[0];
-  const secondaryStubs = stubs.slice(1);
+/**
+ * Creates a multi-stub that executes methods on multiple DOs
+ * Returns the response from the first DO, executes others in background
+ */
+export function getMultiStub<T extends object>(
+  namespace: DurableObjectNamespace<any>,
+  configs: MultiStubConfig[],
+  ctx: ExecutionContext,
+): T {
+  if (configs.length === 0) {
+    throw new Error("At least one DO configuration is required");
+  }
+
+  const [primaryStub, ...secondaryStubs] = getStubs(namespace, configs);
 
   // Create a proxy that intercepts method calls
   return new Proxy(primaryStub as T, {
