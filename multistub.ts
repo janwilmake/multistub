@@ -31,9 +31,11 @@ export const getStubs = <T extends Rpc.DurableObjectBranded>(
  */
 export function getMultiStub<T extends Rpc.DurableObjectBranded>(
   namespace: DurableObjectNamespace<T>,
-  configs: MultiStubConfig[],
+  configs: (MultiStubConfig | undefined)[],
   ctx: ExecutionContext,
-): T {
+): DurableObjectStub<T> {
+  configs = configs.filter((x) => !!x);
+
   if (configs.length === 0) {
     throw new Error("At least one DO configuration is required");
   }
@@ -41,7 +43,7 @@ export function getMultiStub<T extends Rpc.DurableObjectBranded>(
   const [primaryStub, ...secondaryStubs] = getStubs(namespace, configs);
 
   // Create a proxy that intercepts method calls
-  return new Proxy(primaryStub as T, {
+  return new Proxy(primaryStub as DurableObjectStub<T>, {
     get(target, prop, receiver) {
       // Check if the property exists on the target and is a function
       const originalProperty = target[prop as keyof typeof target];
